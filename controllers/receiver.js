@@ -3,7 +3,7 @@ const Sender = require('../models/Sender');
 const nodemailer = require('nodemailer');
 
 exports.sendEmails = async (req, res) => {
-  const { senderEmail, subject, message, receivers } = req.body;
+  const { senderEmail, subject, newmessage, receivers } = req.body;
 
   const sender = await Sender.findOne({ email: senderEmail });
   if (!sender) return res.status(404).json({ error: 'Sender not found' });
@@ -25,7 +25,7 @@ exports.sendEmails = async (req, res) => {
         from: sender.email,
         to,
         subject,
-        html: message,
+        html: newmessage,
       });
       sent++;
     } catch {

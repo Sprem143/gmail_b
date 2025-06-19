@@ -49,6 +49,7 @@ exports.deletesenderemail = async (req, res) => {
 exports.editsenderemail = async (req, res) => {
     try {
         const {editid, email, appPassword } = req.body;
+        console.log(editid, email, appPassword)
         await Sender.findOneAndUpdate(
             { _id: editid },
             {$set:{email:email, appPassword:appPassword}}
