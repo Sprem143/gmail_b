@@ -2,8 +2,6 @@
 const Sender = require('../models/Sender');
 const nodemailer = require('nodemailer');
 
-const delay = (ms)=> new Promise(resolve => setTimeout(resolve, ms));
-
 exports.sendEmails = async (req, res) => {
   const { senderEmail, subject, newmessage, receivers } = req.body;
 
@@ -30,14 +28,11 @@ exports.sendEmails = async (req, res) => {
         html: newmessage,
       });
       sent++;
-    } catch {
+    } catch(err) {
+      console.log(err)
       failed++;
     }
-    console.log('delay start')
-    await delay(5000)
-        console.log('delay end')
-
   }
 
-  res.json({ sent, failed });
+  res.status(200).json({ sent, failed });
 };
